@@ -5,5 +5,5 @@ print({**dict1, **dict2})
 
 
 
-#dict1.update(dict2)
-#print(dict1)
+# dict1.update(dict2)
+# print(dict1)
