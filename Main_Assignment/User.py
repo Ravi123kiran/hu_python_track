@@ -66,8 +66,8 @@ class User:
         self.showTiming=int(input("select the show timing "))
         self.showTiming=self.showTiming-1
         fetch=self.a.movie_timings[self.title][self.showTiming]
-        tot_capacity=list(fetch.values())
-        seats=tot_capacity[0]
+        total_capacity=list(fetch.values())
+        seats=total_capacity[0]
 
         print("Remaining seats: "+str(seats))
         self.no_of_seats = int(input("Enter no of seats\n"))
@@ -93,8 +93,8 @@ class User:
         le = len(self.a.movie_timings[self.title])
         print("Cancel booking")
         fetch = self.a.movie_timings[self.title][self.showTiming]
-        tot_capacity = list(fetch.values())
-        seats = tot_capacity[0]
+        total_capacity = list(fetch.values())
+        seats = total_capacity[0]
         seats = seats +self.no_of_seats
         update_seats = list(fetch.keys())
 

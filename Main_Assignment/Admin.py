@@ -1,3 +1,6 @@
+from openpyxl import load_workbook
+
+
 class Admin:
     added_movies = []
     movie_timings={}
@@ -12,11 +15,10 @@ class Admin:
                 while True:
 
                     print("-------Admin page-------")
-
-                    print("1-> Add Movie")
-                    print("2-> Edit movie")
-                    print("3-> Delete Movie")
-                    print("4-> Logout")
+                    print("1--> Add Movie")
+                    print("2--> Edit movie")
+                    print("3--> Delete Movie")
+                    print("4--> Logout")
                     select2 = eval(input("Enter your select(1/2/3/4):-"))
                     if select2 == 1:
                         self.add_movies()
@@ -30,8 +32,8 @@ class Admin:
                         print("Invalid input")
             else:
                 print("Wrong Password.")
-                print("1-> Try again")
-                print("2-> Quit program")
+                print("1--> Try again")
+                print("2--> Quit program")
                 select = eval(input("Enter your select:-"))
                 if select == 2:
                     print("Quitting the program...")
@@ -46,27 +48,27 @@ class Admin:
         timings = []
 
 
-        mov_name = input("Enter the name of the movie:-")
-        mov_name = mov_name.upper()
-        Movies.update({"title": mov_name})
+        movie_name = input("Enter the name of the movie:-")
+        movie_name = movie_name.upper()
+        Movies.update({"title": movie_name})
 
-        mov_genre = input("Enter the genre:-")
-        Movies.update({"genre": mov_genre})
+        movie_genre = input("Enter the genre:-")
+        Movies.update({"genre": movie_genre})
 
-        mov_length = eval(input("Enter the length :-"))
-        Movies.update({"length": mov_length})
+        movie_length = eval(input("Enter the length :-"))
+        Movies.update({"length": movie_length})
 
-        mov_cast = input("Enter the cast:-")
-        Movies.update({"cast": mov_cast})
+        movie_cast = input("Enter the cast:-")
+        Movies.update({"cast": movie_cast})
 
-        mov_director = input("Enter the director :-")
-        Movies.update({"director": mov_director})
+        movie_director = input("Enter the director :-")
+        Movies.update({"director": movie_director})
 
-        mov_rating = eval(input("Enter the rating :-"))
-        Movies.update({"rating": mov_rating})
+        movie_rating = eval(input("Enter the rating :-"))
+        Movies.update({"rating": movie_rating})
 
-        mov_lang = input("Enter the language:-")
-        Movies.update({"language": mov_lang})
+        movie_lang = input("Enter the language:-")
+        Movies.update({"language": movie_lang})
 
         no_shows = eval(input("Enter number of shows:-"))
         Movies.update({"shows": no_shows})
@@ -74,9 +76,12 @@ class Admin:
         capacity = eval(input("Enter seating capacity:- "))
         Movies.update({"capacity": capacity})
 
-        show_hr = int(input("Enter first show hour :-"))
+        show_hour = int(input("Enter first show hour :-"))
+
         show_mn = int(input("Enter first show minutes:-"))
-        first_show = "{}:{}".format(show_hr, show_mn)
+
+        first_show = "{}:{}".format(show_hour, show_mn)
+
         Movies.update({"first_show": first_show})
 
 
@@ -89,11 +94,11 @@ class Admin:
 
         print(Movies)
         self.added_movies.append(Movies)
-        total_runtime = mov_length + interval + gap
+        total_runtime = movie_length + interval + gap
         hours = total_runtime // 60
         minutes = total_runtime % 60
         time = "{}:{}".format(hours, minutes)
-        show_hr_up = show_hr
+        show_hr_up = show_hour
         show_mn_up = show_mn
         start_time = first_show
         for i in range(no_shows):
@@ -108,7 +113,7 @@ class Admin:
 
             tempdict.update({st:capacity})
             timings.append(tempdict)
-            temp={mov_name:timings}
+            temp={movie_name:timings}
             self.movie_timings.update(temp)
             start_time = end_time
 
@@ -255,3 +260,39 @@ class Admin:
         if(flag1):
             print(self.added_movies)
             print(self.movie_timings)
+
+        def user_rating(self):
+            for i in range(len(self.a.added_movies)):
+                print(self.a.added_movies[i]["title"])
+            movie_name = input("enter the movie name to give the rating")
+            for i in range(len(self.a.added_movies)):
+                if self.a.added_movies[i]["title"] == movie_name:
+                    flag=1
+                    mov_rating=eval(input("enter your rating out of 10"))
+                    break
+            if(flag==0):
+                print("enter proper movie title from given list")
+            file = "PythonData.xlsx"
+            wb = load_workbook(file)
+            ws = wb['Sheet2']
+            li = [self.email, movie_name, mov_rating]
+            final = []
+            i = -1
+            for row in ws:
+                l = []
+                for col in row:
+                    l.append(col.value)
+                final.append(l)
+                i += 1
+            final.append(li)
+            # print(final)
+            ws.insert_rows(i)
+
+            i = 0
+            for row in ws:
+                j = 0
+                for index, col in enumerate(row):
+                    col.value = final[i][j]
+                    j += 1
+                i += 1
+            wb.save("pythonData.xlsx")

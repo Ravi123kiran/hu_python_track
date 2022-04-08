@@ -7,11 +7,11 @@ class Main_page:
      def main(self):
         while True:
 
-            print("-------Main Screen-------")
-            print("1-> Admin")
-            print("2-> RegisterUser")
-            print("3-> Userlogin")
-            print("4-> Exit")
+            print("-------Main Page-------")
+            print("1--> Admin")
+            print("2--> RegisterUser")
+            print("3--> Userlogin")
+            print("4--> Exit")
             select1 = eval(input("Enter your select(1/2/3):-"))
             if select1 == 1:
                 ad = Admin.Admin()
@@ -26,5 +26,5 @@ class Main_page:
                 exit()
             else:
                print("Invalid input")
-mn = Main_page()
-mn.main()
+m = Main_page()
+m.main()
